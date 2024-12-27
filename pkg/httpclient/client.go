@@ -1,0 +1,3 @@
+package httpclient
+
+func NewClient() {}
