@@ -16,6 +16,7 @@ func main() {
 	}
 	// Generate configuration
 	clientId := os.Getenv("TWITCH_CLIENT_ID")
+	clientSecret := os.Getenv("TWITCH_CLIENT_SECRET")
 	redirectUri := os.Getenv("TWITCH_REDIRECT_URI")
 	scopes := []string{
 		"analytics:read:extensions",
@@ -94,7 +95,12 @@ func main() {
 		"user:write:chat",
 	}
 	// Create generator
-	generator, err := twitchtokengenerator.NewGenerator(clientId, redirectUri, scopes)
+	generator, err := twitchtokengenerator.NewGenerator(
+		clientId,
+		clientSecret,
+		redirectUri,
+		scopes,
+	)
 	if err != nil {
 		log.Panic(err)
 	}
