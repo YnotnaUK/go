@@ -1,5 +1,5 @@
 package twitch
 
 type AuthProvider interface {
-	GetAccessToken() (string, error)
+	GetAccessTokenByUserId(userId string) (string, error)
 }
