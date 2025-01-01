@@ -4,7 +4,7 @@ type RefreshingAuthProvider struct {
 	store RefreshingAuthProviderStorer
 }
 
-func (p *RefreshingAuthProvider) GetAccessToken() (string, error) {
+func (p *RefreshingAuthProvider) GetAccessTokenByUserId(userId string) (string, error) {
 	return "", nil
 }
 
