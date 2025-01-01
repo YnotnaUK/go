@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/ynotnauk/go/pkg/twitch"
@@ -14,13 +13,16 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	twitchClientId := os.Getenv("TWITCH_CLIENT_ID")
-	//twitchClientSecret := os.Getenv("TWITCH_CLIENT_SECRET")
-	// Create Bot
-	bot, err := twitch.NewSimpleBot(twitchClientId)
+	// Create store
+	store, err := twitch.NewBotFilesystemStore("data/twitchbotstore")
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 	}
-	// Start Bot
+	// Create bot
+	bot, err := twitch.NewBot(store)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Start bot
 	bot.Start()
 }
