@@ -1,9 +1,7 @@
 package twitch
 
-import twitch_auth "github.com/ynotnauk/go/pkg/twitch/auth"
-
 type Bot struct {
-	auth twitch_auth.AuthProvider
+	auth AuthProvider
 }
 
 func (b *Bot) Start() {
@@ -17,7 +15,7 @@ func NewBot() (*Bot, error) {
 
 // Creates a fully ready to use bot
 func NewSimpleBot(clientId string) (*Bot, error) {
-	authProvider, err := twitch_auth.NewStaticAuthProvider(clientId)
+	authProvider, err := NewRefreshingAuthProvider()
 	if err != nil {
 		return nil, err
 	}
