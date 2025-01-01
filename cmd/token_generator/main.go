@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ynotnauk/go/pkg/dotenv"
+	"github.com/joho/godotenv"
 	"github.com/ynotnauk/go/pkg/twitch"
 )
 
@@ -87,9 +87,9 @@ var scopes = []string{
 
 func main() {
 	// Load .env
-	err := dotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Panic(err)
+		log.Fatal("Error loading .env file")
 	}
 	// Create Token Generator Config
 	tokenGeneratorConfig := &twitch.TokenGeneratorConfig{
