@@ -3,8 +3,11 @@ package twitch
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
+	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -14,6 +17,30 @@ const (
 	httpAgentName    string = "https://github.com/YnotnaUK/go/pkg/twitch - v1.0"
 	validationURL    string = "https://id.twitch.tv/oauth2/validate"
 )
+
+var (
+	ErrInvalidJSONFile error = errors.New("file is not a valid json file")
+)
+
+func CreateAccessTokenFromJSONFile(filePath string) (*AccessToken, error) {
+	// Ensure the file ends in .json
+	if filepath.Ext(filePath) != ".json" {
+		return nil, ErrInvalidJSONFile
+	}
+	// Read file contents
+	fileContents, err := os.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+	// Marshall file contents into blank struct
+	accessToken := &AccessToken{}
+	err = json.Unmarshal(fileContents, accessToken)
+	if err != nil {
+		return nil, err
+	}
+	// Return access token
+	return accessToken, nil
+}
 
 func ExchangeCode(
 	clientId string,
