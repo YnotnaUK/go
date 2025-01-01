@@ -4,13 +4,16 @@ import (
 	"log"
 	"os"
 
-	"github.com/ynotnauk/go/pkg/dotenv"
+	"github.com/joho/godotenv"
 	"github.com/ynotnauk/go/pkg/twitch"
 )
 
 func main() {
-	// Load env
-	dotenv.Load()
+	// Load .env
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	twitchClientId := os.Getenv("TWITCH_CLIENT_ID")
 	//twitchClientSecret := os.Getenv("TWITCH_CLIENT_SECRET")
 	// Create Bot
