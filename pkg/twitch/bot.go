@@ -1,8 +1,14 @@
 package twitch
 
-type TwitchBot struct{}
+type Bot struct {
+	store BotStorer
+}
 
-func NewSimpleBot() (*TwitchBot, error) {
-	bot := &TwitchBot{}
+func (b *Bot) Start() {}
+
+func NewBot(store BotStorer) (*Bot, error) {
+	bot := &Bot{
+		store,
+	}
 	return bot, nil
 }
