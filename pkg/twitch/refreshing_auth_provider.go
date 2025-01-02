@@ -2,12 +2,14 @@ package twitch
 
 import (
 	"fmt"
+	"sync"
 )
 
 type RefreshingAuthProvider struct {
 	accessTokens map[string]*AccessToken
 	clientId     string
 	clientSecret string
+	mutex        *sync.RWMutex
 	redirectURI  string
 }
 
@@ -18,6 +20,8 @@ type RefreshingAuthProviderConfig struct {
 }
 
 func (p *RefreshingAuthProvider) AddAccessToken(accessToken *AccessToken) error {
+	p.mutex.Lock()
+	defer p.mutex.Unlock()
 	p.accessTokens[accessToken.UserId] = accessToken
 	return nil
 }
@@ -35,6 +39,8 @@ func (p *RefreshingAuthProvider) AddAccessTokenFromFile(fileLocation string) err
 }
 
 func (p *RefreshingAuthProvider) GetAccessTokenByUserId(userId string) (*AccessToken, error) {
+	p.mutex.RLock()
+	defer p.mutex.RUnlock()
 	// Get access token
 	accessToken, ok := p.accessTokens[userId]
 	if !ok {
@@ -65,6 +71,7 @@ func NewRefreshingAuthProvider(config RefreshingAuthProviderConfig) (*Refreshing
 		accessTokens: make(map[string]*AccessToken),
 		clientId:     config.ClientId,
 		clientSecret: config.ClientSecret,
+		mutex:        &sync.RWMutex{},
 		redirectURI:  config.RedirectURI,
 	}
 	return authProvider, nil
