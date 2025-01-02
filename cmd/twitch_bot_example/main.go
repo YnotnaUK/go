@@ -13,8 +13,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	// Create store
-	_, err = twitch.NewRefreshingAuthProviderFilesystemStore()
+	// Create auth provider
+	_, err = twitch.NewRefreshingAuthProvider()
 	if err != nil {
 		log.Fatal(err)
 	}
