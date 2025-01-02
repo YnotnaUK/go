@@ -21,12 +21,15 @@ func main() {
 		RedirectURI:  os.Getenv("TWITCH_REDIRECT_URI"),
 	}
 	// Create auth provider
-	_, err = twitch.NewRefreshingAuthProvider(authConfig)
+	authProvider, err := twitch.NewRefreshingAuthProvider(authConfig)
 	if err != nil {
 		log.Fatal(err)
 	}
 	// Create bot
-	bot, err := twitch.NewBot()
+	botConfig := &twitch.BotConfig{
+		AuthProvider: authProvider,
+	}
+	bot, err := twitch.NewBot(botConfig)
 	if err != nil {
 		log.Fatal(err)
 	}

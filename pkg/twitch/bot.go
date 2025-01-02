@@ -1,12 +1,20 @@
 package twitch
 
-type Bot struct{}
+type Bot struct {
+	authProvider AuthProvider
+}
+
+type BotConfig struct {
+	AuthProvider AuthProvider
+}
 
 func (b *Bot) Start() error {
 	return nil
 }
 
-func NewBot() (*Bot, error) {
-	bot := &Bot{}
+func NewBot(config *BotConfig) (*Bot, error) {
+	bot := &Bot{
+		authProvider: config.AuthProvider,
+	}
 	return bot, nil
 }

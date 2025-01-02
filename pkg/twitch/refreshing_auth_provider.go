@@ -17,7 +17,7 @@ type RefreshingAuthProviderConfig struct {
 	RedirectURI  string
 }
 
-func (p *RefreshingAuthProvider) AddAccessToken(userId string, accessToken *AccessToken) error {
+func (p *RefreshingAuthProvider) AddAccessToken(accessToken *AccessToken) error {
 	p.accessTokens[accessToken.UserId] = accessToken
 	return nil
 }
@@ -27,7 +27,7 @@ func (p *RefreshingAuthProvider) AddAccessTokenFromFile(fileLocation string) err
 	if err != nil {
 		return err
 	}
-	err = p.AddAccessToken(accessToken.UserId, accessToken)
+	err = p.AddAccessToken(accessToken)
 	if err != nil {
 		return err
 	}
