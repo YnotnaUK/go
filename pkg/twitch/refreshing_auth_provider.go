@@ -35,10 +35,17 @@ func (p *RefreshingAuthProvider) AddAccessTokenFromFile(fileLocation string) err
 }
 
 func (p *RefreshingAuthProvider) GetAccessTokenByUserId(userId string) (*AccessToken, error) {
+	// Get access token
 	accessToken, ok := p.accessTokens[userId]
 	if !ok {
 		return nil, fmt.Errorf("no access token for user id: %s", userId)
 	}
+	// Validate access token
+	_, err := ValidateAccessToken(accessToken.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+	// Return access token
 	return accessToken, nil
 }
 
