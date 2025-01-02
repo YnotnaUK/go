@@ -14,13 +14,12 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	// Create auth provider config
+	// Create auth provider
 	authConfig := twitch.RefreshingAuthProviderConfig{
 		ClientId:     os.Getenv("TWITCH_CLIENT_ID"),
 		ClientSecret: os.Getenv("TWITCH_CLIENT_SECRET"),
 		RedirectURI:  os.Getenv("TWITCH_REDIRECT_URI"),
 	}
-	// Create auth provider
 	authProvider, err := twitch.NewRefreshingAuthProvider(authConfig)
 	if err != nil {
 		log.Fatal(err)
