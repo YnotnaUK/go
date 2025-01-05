@@ -24,9 +24,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Create store
+	store, err := twitch.NewBotMemoryStore()
+	if err != nil {
+		log.Fatal(err)
+	}
 	// Create bot
 	botConfig := &twitch.BotConfig{
 		AuthProvider: authProvider,
+		Store:        store,
 		UserId:       os.Getenv("TWITCH_USER_ID"),
 	}
 	bot, err := twitch.NewBot(botConfig)
