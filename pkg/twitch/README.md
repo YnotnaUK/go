@@ -1,10 +1,8 @@
 # Twitch Package
 
-## Introduction
+Package for using all [Twitch TV](https://twitch.tv) services
 
-Personal project to learn the go programming language
-
-## Generating Tokens
+## Generating Access Tokens
 
 I've created a token generator to generate an access and refresh token for use with all parts of the project. To start the token generator type.
 
