@@ -2,5 +2,5 @@ package twitch
 
 type BotStorer interface {
 	GetAccessToken(userId string) (*AccessToken, error)
-	CreateAccessToken(accessToken *AccessToken) (bool, error)
+	CreateOrUpdateAccessToken(accessToken *AccessToken) (bool, error)
 }
